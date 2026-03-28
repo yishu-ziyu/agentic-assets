@@ -147,8 +147,8 @@ for i, seg in enumerate(SEGMENTS):
     print(result[0].text, end='', flush=True)
 PYEOF
         
-        # 执行脚本（进度到stderr，转录内容到stdout）
-        "$EVE_VENV/bin/python3" "$TEMP_DIR/batch_transcribe.py" 2>&1 | grep -v "Setting\|following generation\|temperature" || true
+        # 执行脚本（进度到stderr，转录内容到stdout，过滤噪音）
+        "$EVE_VENV/bin/python3" "$TEMP_DIR/batch_transcribe.py" 2>/dev/null | grep -vE "^\[|^Setting|following generation|temperature" || true
     fi
 }
 
